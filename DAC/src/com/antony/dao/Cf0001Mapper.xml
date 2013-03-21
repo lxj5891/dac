@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.antony.dao.Cf0001Mapper" >
+  <resultMap id="BaseResultMap" type="com.antony.vo.Cf0001" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="DOCID" property="docid" jdbcType="CHAR" />
+    <result column="FILEID" property="fileid" jdbcType="CHAR" />
+    <result column="GROUPID" property="groupid" jdbcType="CHAR" />
+    <result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+    <result column="FILEPATH" property="filepath" jdbcType="VARCHAR" />
+    <result column="NETPATH" property="netpath" jdbcType="VARCHAR" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="USERID" property="userid" jdbcType="INTEGER" />
+    <result column="REALPATH" property="realpath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DOCID, FILEID, GROUPID, FILENAME, FILEPATH, NETPATH, UPDATETIME, USERID, REALPATH
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.antony.vo.Cf0001Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cf0001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+      <if test="limitStart>0" >
+        limit ${limitStart} , ${limitEnd}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cf0001
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cf0001
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.antony.vo.Cf0001Example" >
+    delete from cf0001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.antony.vo.Cf0001" >
+    insert into cf0001 (ID, DOCID, FILEID, 
+      GROUPID, FILENAME, FILEPATH, 
+      NETPATH, UPDATETIME, USERID, 
+      REALPATH)
+    values (#{id,jdbcType=INTEGER}, #{docid,jdbcType=CHAR}, #{fileid,jdbcType=CHAR}, 
+      #{groupid,jdbcType=CHAR}, #{filename,jdbcType=VARCHAR}, #{filepath,jdbcType=VARCHAR}, 
+      #{netpath,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{userid,jdbcType=INTEGER}, 
+      #{realpath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.antony.vo.Cf0001" >
+    insert into cf0001
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="docid != null" >
+        DOCID,
+      </if>
+      <if test="fileid != null" >
+        FILEID,
+      </if>
+      <if test="groupid != null" >
+        GROUPID,
+      </if>
+      <if test="filename != null" >
+        FILENAME,
+      </if>
+      <if test="filepath != null" >
+        FILEPATH,
+      </if>
+      <if test="netpath != null" >
+        NETPATH,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="realpath != null" >
+        REALPATH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="docid != null" >
+        #{docid,jdbcType=CHAR},
+      </if>
+      <if test="fileid != null" >
+        #{fileid,jdbcType=CHAR},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=CHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filepath != null" >
+        #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="netpath != null" >
+        #{netpath,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="realpath != null" >
+        #{realpath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.antony.vo.Cf0001Example" resultType="java.lang.Integer" >
+    select count(*) from cf0001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cf0001
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.docid != null" >
+        DOCID = #{record.docid,jdbcType=CHAR},
+      </if>
+      <if test="record.fileid != null" >
+        FILEID = #{record.fileid,jdbcType=CHAR},
+      </if>
+      <if test="record.groupid != null" >
+        GROUPID = #{record.groupid,jdbcType=CHAR},
+      </if>
+      <if test="record.filename != null" >
+        FILENAME = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filepath != null" >
+        FILEPATH = #{record.filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netpath != null" >
+        NETPATH = #{record.netpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        UPDATETIME = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.realpath != null" >
+        REALPATH = #{record.realpath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cf0001
+    set ID = #{record.id,jdbcType=INTEGER},
+      DOCID = #{record.docid,jdbcType=CHAR},
+      FILEID = #{record.fileid,jdbcType=CHAR},
+      GROUPID = #{record.groupid,jdbcType=CHAR},
+      FILENAME = #{record.filename,jdbcType=VARCHAR},
+      FILEPATH = #{record.filepath,jdbcType=VARCHAR},
+      NETPATH = #{record.netpath,jdbcType=VARCHAR},
+      UPDATETIME = #{record.updatetime,jdbcType=TIMESTAMP},
+      USERID = #{record.userid,jdbcType=INTEGER},
+      REALPATH = #{record.realpath,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.antony.vo.Cf0001" >
+    update cf0001
+    <set >
+      <if test="docid != null" >
+        DOCID = #{docid,jdbcType=CHAR},
+      </if>
+      <if test="fileid != null" >
+        FILEID = #{fileid,jdbcType=CHAR},
+      </if>
+      <if test="groupid != null" >
+        GROUPID = #{groupid,jdbcType=CHAR},
+      </if>
+      <if test="filename != null" >
+        FILENAME = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filepath != null" >
+        FILEPATH = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="netpath != null" >
+        NETPATH = #{netpath,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="realpath != null" >
+        REALPATH = #{realpath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.antony.vo.Cf0001" >
+    update cf0001
+    set DOCID = #{docid,jdbcType=CHAR},
+      FILEID = #{fileid,jdbcType=CHAR},
+      GROUPID = #{groupid,jdbcType=CHAR},
+      FILENAME = #{filename,jdbcType=VARCHAR},
+      FILEPATH = #{filepath,jdbcType=VARCHAR},
+      NETPATH = #{netpath,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      USERID = #{userid,jdbcType=INTEGER},
+      REALPATH = #{realpath,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getNextId" resultType="java.lang.Integer" >
+    select max(ID)+1 as id from cf0001
+  </select>
+</mapper>

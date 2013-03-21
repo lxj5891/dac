@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- 文件上传映射 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
+
+
+	<!-- 控制器映射 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="loginInterceptor"></ref>
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<!-- 新版系统管理 -->
+				<prop key="/index.do">frontIndexController</prop>
+				<prop key="/app.do">ajaxAppController</prop>
+
+
+				<prop key="/admin/login.do">adminLoginController</prop>
+				<prop key="/admin/logout.do">adminLogoutController</prop>
+									
+				<prop key="/admin/root.do">adminIndexController</prop>
+				<prop key="/admin/mail.do">adminMailController</prop>
+				<prop key="/admin/menu.do">adminMenuController</prop>
+				
+				
+				<prop key="/admin/sm/sm3001.do">adminSm3001Controller</prop>
+
+			</props>
+		</property>
+	</bean>
+
+	<!-- 登录拦截器 -->
+	<bean id="loginInterceptor" class="org.antonyframework.web.interceptor.LoginInterceptor">
+		<property name="loginURL">
+			<value>/admin/login.do</value> <!-- 我的项目 -->
+		</property>
+		<property name="exactMatch">
+			<value>false</value>
+		</property>
+		<property name="ignoreURLs"><!-- 不拦截的地址 -->
+			<list>
+				<!-- 匿名用户部分，URL格式：/开头 -->
+				<value>/admin/login.do</value> <!-- 我的项目 -->
+				<value>/admin/logout.do</value> <!-- 我的项目 -->
+				
+				<value>/index.do</value> <!-- 我的项目 -->
+				<value>/app.do</value> <!-- 我的项目 -->
+				<value>/user.do</value> <!-- 我的项目 -->
+			</list>
+		</property>
+	</bean>
+	<bean id="filenameController"
+		class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+
+	<bean id="xmlViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="order" value="1" />
+		<property name="location" value="/WEB-INF/views.xml" />
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+	<!-- 异常工具类 -->
+	<bean id="exceptionUtil" class="org.antonyframework.util.ExceptionUtil" />
+
+	<!-- 常用工具类 -->
+	<bean id="commonUtil" class="org.antonyframework.util.CommonUtil" />
+</beans>

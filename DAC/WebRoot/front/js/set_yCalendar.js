@@ -1,0 +1,21 @@
+$(document).ready(function () {
+//	var c = new yCalendar();
+//	c.setName("尤克里里");
+//	c.setTime(12);
+//	c.drawMain();
+//	c.startShow();
+//	c.addActivity("long","2012,7,23","我的天呀~",2);
+//	c.addActivity("long","2012,7,16","我的妈呀~",10);
+//	c.addActivity("short","2012,9,13","我的神呀~");
+//	c.addActivity("short","2012,9,18","我的神呀~");
+//	c.addActivity("short","2012,8,18","我的神呀~");
+//	c.addActivity("short","2012,9,22","我的神呀~");
+//	c.addActivity("short","2012,8,12","我的神呀~");
+//	c.addActivity("long","2012,9,15","我的神呀~",3);
+//	c.addActivity("long","2012,9,10","我的神呀~",5);
+//	c.addActivity("long","2012,8,10","我的神呀~",8);
+//	c.addActivity("long","2012,8,5","我的神呀~",8);
+//	c.dateClick();
+//	c.weekClick();
+//	c.yList();
+});

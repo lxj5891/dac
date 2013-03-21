@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.antony.service.mail.db.Cm3001Mapper" >
+  <resultMap id="BaseResultMap" type="com.antony.service.mail.vo.Cm3001" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SENDERADDR" property="senderaddr" jdbcType="VARCHAR" />
+    <result column="SENDERNAME" property="sendername" jdbcType="VARCHAR" />
+    <result column="RECEIVERADDR" property="receiveraddr" jdbcType="VARCHAR" />
+    <result column="HIT" property="hit" jdbcType="INTEGER" />
+    <result column="CCS" property="ccs" jdbcType="VARCHAR" />
+    <result column="BCCS" property="bccs" jdbcType="VARCHAR" />
+    <result column="SUBJECT" property="subject" jdbcType="VARCHAR" />
+    <result column="SENDDATE" property="senddate" jdbcType="TIMESTAMP" />
+    <result column="RESENDNO" property="resendno" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="ACTNO" property="actno" jdbcType="INTEGER" />
+    <result column="SCHEDULETYPE" property="scheduletype" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.antony.service.mail.vo.Cm3001" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SENDERADDR, SENDERNAME, RECEIVERADDR, HIT, CCS, BCCS, SUBJECT, SENDDATE, RESENDNO, 
+    STATUS, ACTNO, SCHEDULETYPE
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.antony.service.mail.vo.Cm3001Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cm3001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.antony.service.mail.vo.Cm3001Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cm3001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+      <if test="limitStart > 0" >
+        limit ${limitStart} , ${limitEnd}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cm3001
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cm3001
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.antony.service.mail.vo.Cm3001Example" >
+    delete from cm3001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.antony.service.mail.vo.Cm3001" >
+    insert into cm3001 (ID, SENDERADDR, SENDERNAME, 
+      RECEIVERADDR, HIT, CCS, 
+      BCCS, SUBJECT, SENDDATE, 
+      RESENDNO, STATUS, ACTNO, 
+      SCHEDULETYPE, CONTENT)
+    values (#{id,jdbcType=INTEGER}, #{senderaddr,jdbcType=VARCHAR}, #{sendername,jdbcType=VARCHAR}, 
+      #{receiveraddr,jdbcType=VARCHAR}, #{hit,jdbcType=INTEGER}, #{ccs,jdbcType=VARCHAR}, 
+      #{bccs,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{senddate,jdbcType=TIMESTAMP}, 
+      #{resendno,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{actno,jdbcType=INTEGER}, 
+      #{scheduletype,jdbcType=CHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.antony.service.mail.vo.Cm3001" >
+    insert into cm3001
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="senderaddr != null" >
+        SENDERADDR,
+      </if>
+      <if test="sendername != null" >
+        SENDERNAME,
+      </if>
+      <if test="receiveraddr != null" >
+        RECEIVERADDR,
+      </if>
+      <if test="hit != null" >
+        HIT,
+      </if>
+      <if test="ccs != null" >
+        CCS,
+      </if>
+      <if test="bccs != null" >
+        BCCS,
+      </if>
+      <if test="subject != null" >
+        SUBJECT,
+      </if>
+      <if test="senddate != null" >
+        SENDDATE,
+      </if>
+      <if test="resendno != null" >
+        RESENDNO,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="actno != null" >
+        ACTNO,
+      </if>
+      <if test="scheduletype != null" >
+        SCHEDULETYPE,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="senderaddr != null" >
+        #{senderaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sendername != null" >
+        #{sendername,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveraddr != null" >
+        #{receiveraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="hit != null" >
+        #{hit,jdbcType=INTEGER},
+      </if>
+      <if test="ccs != null" >
+        #{ccs,jdbcType=VARCHAR},
+      </if>
+      <if test="bccs != null" >
+        #{bccs,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="senddate != null" >
+        #{senddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resendno != null" >
+        #{resendno,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="actno != null" >
+        #{actno,jdbcType=INTEGER},
+      </if>
+      <if test="scheduletype != null" >
+        #{scheduletype,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.antony.service.mail.vo.Cm3001Example" resultType="java.lang.Integer" >
+    select count(*) from cm3001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cm3001
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.senderaddr != null" >
+        SENDERADDR = #{record.senderaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendername != null" >
+        SENDERNAME = #{record.sendername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveraddr != null" >
+        RECEIVERADDR = #{record.receiveraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hit != null" >
+        HIT = #{record.hit,jdbcType=INTEGER},
+      </if>
+      <if test="record.ccs != null" >
+        CCS = #{record.ccs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bccs != null" >
+        BCCS = #{record.bccs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subject != null" >
+        SUBJECT = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senddate != null" >
+        SENDDATE = #{record.senddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.resendno != null" >
+        RESENDNO = #{record.resendno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.actno != null" >
+        ACTNO = #{record.actno,jdbcType=INTEGER},
+      </if>
+      <if test="record.scheduletype != null" >
+        SCHEDULETYPE = #{record.scheduletype,jdbcType=CHAR},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update cm3001
+    set ID = #{record.id,jdbcType=INTEGER},
+      SENDERADDR = #{record.senderaddr,jdbcType=VARCHAR},
+      SENDERNAME = #{record.sendername,jdbcType=VARCHAR},
+      RECEIVERADDR = #{record.receiveraddr,jdbcType=VARCHAR},
+      HIT = #{record.hit,jdbcType=INTEGER},
+      CCS = #{record.ccs,jdbcType=VARCHAR},
+      BCCS = #{record.bccs,jdbcType=VARCHAR},
+      SUBJECT = #{record.subject,jdbcType=VARCHAR},
+      SENDDATE = #{record.senddate,jdbcType=TIMESTAMP},
+      RESENDNO = #{record.resendno,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=CHAR},
+      ACTNO = #{record.actno,jdbcType=INTEGER},
+      SCHEDULETYPE = #{record.scheduletype,jdbcType=CHAR},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cm3001
+    set ID = #{record.id,jdbcType=INTEGER},
+      SENDERADDR = #{record.senderaddr,jdbcType=VARCHAR},
+      SENDERNAME = #{record.sendername,jdbcType=VARCHAR},
+      RECEIVERADDR = #{record.receiveraddr,jdbcType=VARCHAR},
+      HIT = #{record.hit,jdbcType=INTEGER},
+      CCS = #{record.ccs,jdbcType=VARCHAR},
+      BCCS = #{record.bccs,jdbcType=VARCHAR},
+      SUBJECT = #{record.subject,jdbcType=VARCHAR},
+      SENDDATE = #{record.senddate,jdbcType=TIMESTAMP},
+      RESENDNO = #{record.resendno,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=CHAR},
+      ACTNO = #{record.actno,jdbcType=INTEGER},
+      SCHEDULETYPE = #{record.scheduletype,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.antony.service.mail.vo.Cm3001" >
+    update cm3001
+    <set >
+      <if test="senderaddr != null" >
+        SENDERADDR = #{senderaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sendername != null" >
+        SENDERNAME = #{sendername,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveraddr != null" >
+        RECEIVERADDR = #{receiveraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="hit != null" >
+        HIT = #{hit,jdbcType=INTEGER},
+      </if>
+      <if test="ccs != null" >
+        CCS = #{ccs,jdbcType=VARCHAR},
+      </if>
+      <if test="bccs != null" >
+        BCCS = #{bccs,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        SUBJECT = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="senddate != null" >
+        SENDDATE = #{senddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resendno != null" >
+        RESENDNO = #{resendno,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="actno != null" >
+        ACTNO = #{actno,jdbcType=INTEGER},
+      </if>
+      <if test="scheduletype != null" >
+        SCHEDULETYPE = #{scheduletype,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.antony.service.mail.vo.Cm3001" >
+    update cm3001
+    set SENDERADDR = #{senderaddr,jdbcType=VARCHAR},
+      SENDERNAME = #{sendername,jdbcType=VARCHAR},
+      RECEIVERADDR = #{receiveraddr,jdbcType=VARCHAR},
+      HIT = #{hit,jdbcType=INTEGER},
+      CCS = #{ccs,jdbcType=VARCHAR},
+      BCCS = #{bccs,jdbcType=VARCHAR},
+      SUBJECT = #{subject,jdbcType=VARCHAR},
+      SENDDATE = #{senddate,jdbcType=TIMESTAMP},
+      RESENDNO = #{resendno,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      ACTNO = #{actno,jdbcType=INTEGER},
+      SCHEDULETYPE = #{scheduletype,jdbcType=CHAR},
+      CONTENT = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.antony.service.mail.vo.Cm3001" >
+    update cm3001
+    set SENDERADDR = #{senderaddr,jdbcType=VARCHAR},
+      SENDERNAME = #{sendername,jdbcType=VARCHAR},
+      RECEIVERADDR = #{receiveraddr,jdbcType=VARCHAR},
+      HIT = #{hit,jdbcType=INTEGER},
+      CCS = #{ccs,jdbcType=VARCHAR},
+      BCCS = #{bccs,jdbcType=VARCHAR},
+      SUBJECT = #{subject,jdbcType=VARCHAR},
+      SENDDATE = #{senddate,jdbcType=TIMESTAMP},
+      RESENDNO = #{resendno,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      ACTNO = #{actno,jdbcType=INTEGER},
+      SCHEDULETYPE = #{scheduletype,jdbcType=CHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="MailNextId" resultType="java.lang.Integer">
+  	select max(id)+1 as id from cm3001
+  </select>
+</mapper>

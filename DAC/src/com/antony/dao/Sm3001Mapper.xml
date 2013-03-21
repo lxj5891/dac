@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.antony.dao.Sm3001Mapper" >
+  <resultMap id="BaseResultMap" type="com.antony.vo.Sm3001" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SEQ" property="seq" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PASS" property="pass" jdbcType="VARCHAR" />
+    <result column="SCHOOL" property="school" jdbcType="VARCHAR" />
+    <result column="NICK" property="nick" jdbcType="VARCHAR" />
+    <result column="SKEY" property="skey" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="FILEID" property="fileid" jdbcType="INTEGER" />
+    <result column="FILEPATH" property="filepath" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="INTEGER" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="SENDTIME" property="sendtime" jdbcType="TIMESTAMP" />
+    <result column="EMAILID" property="emailid" jdbcType="INTEGER" />
+    <result column="TYPEID" property="typeid" jdbcType="CHAR" />
+    <result column="PLANDATE" property="plandate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SEQ, NAME, UID, PASS, SCHOOL, NICK, SKEY, EMAIL, FILEID, FILEPATH, USERID, UPDATETIME, 
+    SENDTIME, EMAILID, TYPEID, PLANDATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.antony.vo.Sm3001Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sm3001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+      <if test="limitStart>0" >
+        limit ${limitStart} , ${limitEnd}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sm3001
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sm3001
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.antony.vo.Sm3001Example" >
+    delete from sm3001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.antony.vo.Sm3001" >
+    insert into sm3001 (ID, SEQ, NAME, 
+      UID, PASS, SCHOOL, 
+      NICK, SKEY, EMAIL, 
+      FILEID, FILEPATH, USERID, 
+      UPDATETIME, SENDTIME, EMAILID, 
+      TYPEID, PLANDATE)
+    values (#{id,jdbcType=INTEGER}, #{seq,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{uid,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
+      #{nick,jdbcType=VARCHAR}, #{skey,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{fileid,jdbcType=INTEGER}, #{filepath,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{sendtime,jdbcType=TIMESTAMP}, #{emailid,jdbcType=INTEGER}, 
+      #{typeid,jdbcType=CHAR}, #{plandate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.antony.vo.Sm3001" >
+    insert into sm3001
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="seq != null" >
+        SEQ,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="uid != null" >
+        UID,
+      </if>
+      <if test="pass != null" >
+        PASS,
+      </if>
+      <if test="school != null" >
+        SCHOOL,
+      </if>
+      <if test="nick != null" >
+        NICK,
+      </if>
+      <if test="skey != null" >
+        SKEY,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="fileid != null" >
+        FILEID,
+      </if>
+      <if test="filepath != null" >
+        FILEPATH,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="sendtime != null" >
+        SENDTIME,
+      </if>
+      <if test="emailid != null" >
+        EMAILID,
+      </if>
+      <if test="typeid != null" >
+        TYPEID,
+      </if>
+      <if test="plandate != null" >
+        PLANDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="nick != null" >
+        #{nick,jdbcType=VARCHAR},
+      </if>
+      <if test="skey != null" >
+        #{skey,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fileid != null" >
+        #{fileid,jdbcType=INTEGER},
+      </if>
+      <if test="filepath != null" >
+        #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emailid != null" >
+        #{emailid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=CHAR},
+      </if>
+      <if test="plandate != null" >
+        #{plandate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.antony.vo.Sm3001Example" resultType="java.lang.Integer" >
+    select count(*) from sm3001
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sm3001
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.seq != null" >
+        SEQ = #{record.seq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null" >
+        UID = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pass != null" >
+        PASS = #{record.pass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        SCHOOL = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nick != null" >
+        NICK = #{record.nick,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skey != null" >
+        SKEY = #{record.skey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileid != null" >
+        FILEID = #{record.fileid,jdbcType=INTEGER},
+      </if>
+      <if test="record.filepath != null" >
+        FILEPATH = #{record.filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatetime != null" >
+        UPDATETIME = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendtime != null" >
+        SENDTIME = #{record.sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.emailid != null" >
+        EMAILID = #{record.emailid,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeid != null" >
+        TYPEID = #{record.typeid,jdbcType=CHAR},
+      </if>
+      <if test="record.plandate != null" >
+        PLANDATE = #{record.plandate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sm3001
+    set ID = #{record.id,jdbcType=INTEGER},
+      SEQ = #{record.seq,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      UID = #{record.uid,jdbcType=VARCHAR},
+      PASS = #{record.pass,jdbcType=VARCHAR},
+      SCHOOL = #{record.school,jdbcType=VARCHAR},
+      NICK = #{record.nick,jdbcType=VARCHAR},
+      SKEY = #{record.skey,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      FILEID = #{record.fileid,jdbcType=INTEGER},
+      FILEPATH = #{record.filepath,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=INTEGER},
+      UPDATETIME = #{record.updatetime,jdbcType=TIMESTAMP},
+      SENDTIME = #{record.sendtime,jdbcType=TIMESTAMP},
+      EMAILID = #{record.emailid,jdbcType=INTEGER},
+      TYPEID = #{record.typeid,jdbcType=CHAR},
+      PLANDATE = #{record.plandate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.antony.vo.Sm3001" >
+    update sm3001
+    <set >
+      <if test="seq != null" >
+        SEQ = #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        UID = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        PASS = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        SCHOOL = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="nick != null" >
+        NICK = #{nick,jdbcType=VARCHAR},
+      </if>
+      <if test="skey != null" >
+        SKEY = #{skey,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fileid != null" >
+        FILEID = #{fileid,jdbcType=INTEGER},
+      </if>
+      <if test="filepath != null" >
+        FILEPATH = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendtime != null" >
+        SENDTIME = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emailid != null" >
+        EMAILID = #{emailid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        TYPEID = #{typeid,jdbcType=CHAR},
+      </if>
+      <if test="plandate != null" >
+        PLANDATE = #{plandate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.antony.vo.Sm3001" >
+    update sm3001
+    set SEQ = #{seq,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      UID = #{uid,jdbcType=VARCHAR},
+      PASS = #{pass,jdbcType=VARCHAR},
+      SCHOOL = #{school,jdbcType=VARCHAR},
+      NICK = #{nick,jdbcType=VARCHAR},
+      SKEY = #{skey,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      FILEID = #{fileid,jdbcType=INTEGER},
+      FILEPATH = #{filepath,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=INTEGER},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      SENDTIME = #{sendtime,jdbcType=TIMESTAMP},
+      EMAILID = #{emailid,jdbcType=INTEGER},
+      TYPEID = #{typeid,jdbcType=CHAR},
+      PLANDATE = #{plandate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getNextId" resultType="java.lang.Integer" >
+    select max(ID)+1 as id from sm3001
+  </select>
+</mapper>

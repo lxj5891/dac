@@ -1,0 +1,9 @@
+#alert_object { padding-left:8px; background:url(../images/alert_object.png) no-repeat left top; position:absolute; left:0; top:0; z-index:99; display:none; }
+.alert_object_middle { height:79px; padding:8px 0; background:url(../images/alert_object.png) repeat-x left -95px; }
+.alert_object_bottom { padding-right:8px; background:url(../images/alert_object.png) no-repeat right bottom; }
+#alert_object .top_bg { height:34px; font-size:10pt; color:#333; line-height:34px; text-align:left; padding:0 10px; background:#e5e5e5; }
+#alert_object .main_bg { height:45px; font-size:10pt; color:#555; line-height:45px; text-align:left; padding:0 50px; background:#FFF; }
+#alert_object .check_main_bg { height:79px; font-size:10pt; color:#555; line-height:79px; background:#FFF; }
+#alert_object .check_main_tx { height:58px; line-height:58px; text-align:left; border-bottom: 1px solid #aaa; padding:0 45px; margin:0 5px; }
+#alert_object .check_main_button { height:20px; line-height:20px; text-align:left; padding:0 45px; margin:0 5px; position:relative; }
+#alert_object .check_main_button .button { position:absolute; right:0; top:0; }

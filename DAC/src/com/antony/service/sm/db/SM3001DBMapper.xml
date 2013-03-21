@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.antony.service.sm.db.SM3001DBMapper">
+	<select id="getSendmailList"  parameterType="java.util.Map"
+		resultType="java.util.Map" useCache="false" >
+		select 
+		sm3001.ID, 
+		sm3001.SEQ, 
+		sm3001.NAME,
+		sm3001.SCHOOL,
+		sm3001.NICK, 
+		sm3001.SKEY, 
+		sm3001.EMAIL, 
+		sm3001.FILEID, 
+		sm3001.FILEPATH, 
+		sm3001.USERID, 
+		sm3001.UPDATETIME, 
+		sm3001.SENDTIME, 
+		sm3001.EMAILID, 
+		sm3001.TYPEID, 
+		sm3001.PLANDATE,
+		cu0001.REALNAME
+		from sm3001 ,cu0001
+		
+		WHERE   sm3001.USERID = cu0001.ID
+		
+		order by EMAILID ,TYPEID DESC
+	</select>
+	<select id="queryTotCount" parameterType="java.util.Map" resultType="java.lang.Integer" useCache="false">
+		select count(*) from sm3001
+		<where>
+			<if test="ID!=null"> USERID =#{ID} </if>
+		</where>
+	</select>
+	<select id="queryAdminWaitAppCount" parameterType="java.util.Map" resultType="java.lang.Integer" useCache="false">
+		select count(*) from sm3001 where TYPEID is null
+	</select>
+	<select id="queryWaitAppCount" parameterType="java.util.Map" resultType="java.lang.Integer" useCache="false">
+		select count(*) from sm3001 where TYPEID is null 
+		<if test="ID!=null">
+			AND USERID = #{ID}
+		</if>
+	</select>
+ 
+</mapper>

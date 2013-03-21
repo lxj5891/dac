@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!--后台管理登录-->
+	<bean id="adminSm3001Controller" class="org.antonyframework.web.common.BaseController">
+		<property name="processMap">
+			<map>
+				<entry key="default">
+					<bean class="com.antony.web.sm.PSM3001">
+						<property name="appName" value="sm3001" />
+						<property name="successView" value="admin/sm/sm3001/list" />
+					</bean>
+				</entry>
+				<!-- 
+				<entry key="list">
+					<bean class="com.sun.app.process.admin.zhaopin.ListProcess">
+						<property name="appName" value="zhaopin" />
+						<property name="successView" value="admin/zhaopin/list" />
+					</bean>
+				</entry>
+				<entry key="addview">
+					<bean class="com.sun.app.process.admin.zhaopin.AddViewProcess">
+						<property name="appName" value="zhaopin" />
+						<property name="successView" value="admin/zhaopin/add_view" />
+					</bean>
+				</entry>
+				<entry key="adddialog">
+					<bean class="com.sun.app.process.admin.zhaopin.AddViewProcess">
+						<property name="appName" value="zhaopin" />
+						<property name="successView" value="admin/zhaopin/add_dialog" />
+					</bean>
+				</entry>
+				<entry key="add">
+					<bean class="com.sun.app.process.admin.zhaopin.AddProcess">
+						<property name="appName" value="zhaopin" />
+						<property name="successView" value="jsonView" />
+					</bean>
+				</entry>	
+				<entry key="editview">
+					<bean class="com.sun.app.process.admin.zhaopin.EditViewProcess">
+						<property name="appName" value="zhaopin" />
+						<property name="successView" value="admin/zhaopin/edit_view" />
+					</bean>
+				</entry>	
+				<entry key="edit">
+					<bean class="com.sun.app.process.admin.zhaopin.EditProcess">
+						<property name="appName" value="zhaopin" />
+						<property name="successView" value="jsonView" />
+					</bean>
+				</entry>	
+				<entry key="delete">
+					<bean class="com.sun.app.process.admin.zhaopin.DeleteProcess">
+						<property name="appName" value="zhaopin" />
+						<property name="successView" value="jsonView" />
+					</bean>
+				</entry>
+				 -->					
+			</map>
+		</property>
+	</bean>
+</beans>

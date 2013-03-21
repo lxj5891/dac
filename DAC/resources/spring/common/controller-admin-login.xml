@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!--后台管理登录-->
+	<bean id="adminLoginController" class="org.antonyframework.web.common.BaseController">
+		<property name="processMap">
+			<map>
+				<entry key="default">
+					<bean class="com.antony.web.common.PLogin">
+						<property name="successView" value="admin/common/common_login" />
+						<property name="failureView" value="admin/common/common_login" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="adminLogoutController" class="org.antonyframework.web.common.BaseController">
+		<property name="processMap">
+			<map>
+				<entry key="default">
+					<bean class="com.antony.web.common.PLogout">
+						<property name="successView" value="admin/login" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

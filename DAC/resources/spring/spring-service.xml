@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+	default-autowire="byName" default-merge="true">
+
+	<bean id="baseService" class="org.antonyframework.service.common.CommonBaseService">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<!-- Service Manager -->
+	<bean id="ServiceManager" class="com.antony.service.ServiceManager" >
+		
+	</bean>
+	<!-- Menu Manager -->
+	<bean id="MenuManager" class="com.antony.service.MenuManager" scope="singleton" init-method="load">
+		<property name="menuService" ref="menuService" />
+	</bean>
+	<bean id="UserManager" class="com.antony.service.UserManager" >
+		<property name="userService" ref="userService" />
+	</bean>
+	
+	<bean id="userService" class="com.antony.service.common.biz.UserService"
+		parent="baseService" />
+	
+	<bean id="mailService" class="com.antony.service.mail.biz.MailService"
+		parent="baseService" />
+		
+	<bean id="menuService" class="com.antony.service.common.biz.MenuService"
+		parent="baseService" />
+	
+	
+	<bean id="sm3001Service" class="com.antony.service.sm.biz.SM3001Service"
+		parent="baseService" init-method="init" />
+		
+		
+	<bean id="flexService" class="com.antony.service.common.biz.FlexService"
+		parent="baseService" init-method="init" />
+</beans>

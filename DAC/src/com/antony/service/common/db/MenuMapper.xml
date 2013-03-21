@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.antony.service.common.db.MenuMapper" >
+	<sql id="Base_Column_List">
+		ID, MID, NAME, ACTION, TYPE, STATUS, PARENT, RANK, DES,
+		CONTENT,
+		UPDATETIME
+	</sql>
+	<select id="queryTopMenu" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select 
+		 cm0001.ID as id ,cm0001.NAME as name,cm0001.ACTION as action 
+		 from cm0001 ,cm0002,cr0001,cu0002 
+		where cm0001.ID = cm0002.MENU_ID 
+		and cm0001.type = 'TOP' 		 
+		and cm0002.ROLE_ID = 1 
+		and cr0001.ID = cm0002.ROLE_ID 
+		and cu0002.ROLEID = cr0001.ID 
+		AND CU0002.USERID = #{ID} 
+	</select>
+
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.antony.service.exp.ExpenseMapper" >
+	<select id="selectFristNum" parameterType="java.util.Map" resultType="java.util.Map">
+/* Formatted on 2012-10-17 오후 3:17:15 (QP5 v5.115.810.9015) */
+  SELECT   *
+    FROM   (SELECT   CASE
+                        WHEN T2.BILL_ITEM_NUMB =
+                                GET_MIN_ITEM_NUMB (T1.BILL_IDEN_NUMB)
+                        THEN
+                           T1.BILL_IDEN_NUMB
+                        ELSE
+                           ''
+                     END
+                        BILL_NO,                                    --관리번호
+                     T2.BILL_ITEM_NUMB                              --관리번호
+              FROM   EX_ACT_TBL T1,
+                     CM_PJT_MB M,
+                     EX_PRV_TBL T3,
+                     EX_OVER_TBL T2,
+                     EX_CARD_TBL T4,
+                     CM_COA_MB T5
+             WHERE       T1.BILL_IDEN_NUMB = T2.BILL_IDEN_NUMB
+                     AND T1.APPR_EMPL_NUMB = '02663'
+                     AND T2.BILL_IDEN_NUMB = T4.BILL_IDEN_NUMB(+)
+                     AND T2.BILL_ITEM_NUMB = T4.BILL_ITEM_NUMB(+)
+                     AND T2.BILL_IDEN_NUMB = T3.BILL_IDEN_NUMB(+)
+                     AND T2.BILL_ITEM_NUMB = T3.BILL_ITEM_NUMB(+)
+                     AND T2.ACCOUNT_ID = T5.ACCOUNT_ID
+                     AND M.PJT_NO = T1.PJT_NO
+                     AND ( (T1.CHECK_EMP_NUMB IS NULL
+                            AND T1.COPR_EMP_NUMB IS NULL)
+                          OR (    T1.CHECK_EMP_NUMB IS NOT NULL
+                              AND T1.EXPE_CHECK_FLAG = 'Y'
+                              AND T1.COPR_EMP_NUMB IS NULL)
+                          OR ( (T1.CHECK_EMP_NUMB = T1.COPR_EMP_NUMB)
+                              AND T1.EXPE_CHECK_FLAG = 'C')
+                          OR (T1.COPR_EMP_NUMB IS NOT NULL
+                              AND T1.EXPE_CHECK_FLAG = 'C')
+                          OR (T1.APPR_EMPL_NUMB = T1.CHECK_EMP_NUMB
+                              AND T1.COPR_EMP_NUMB IS NULL)
+                          OR (    T1.APPR_EMPL_NUMB = T1.CHECK_EMP_NUMB
+                              AND T1.COPR_EMP_NUMB IS NOT NULL
+                              AND T1.EXPE_CHECK_FLAG = 'C'))
+                     AND T1.EXPE_ACT_TYPE != '부서경비'
+                     AND T1.EXPE_STAT_FLAG = '0021'
+                     AND ( (T1.BILL_IDEN_NUMB IN
+                                  (SELECT   C.BILL_IDEN_NUMB
+                                     FROM   EX_CARD_TBL C
+                                    WHERE   C.BILL_IDEN_NUMB =
+                                               T1.BILL_IDEN_NUMB)--AND T1.EXPE_ACT_TYPE = '법인카드'
+                          )
+                          OR T1.EXPE_ACT_TYPE != '법인카드'
+                          OR T1.EXPE_STAT_FLAG = '0032'          --MGR. REJECT
+                          OR T1.EXPE_STAT_FLAG = '0052'         --ACCT. REJECT
+                                                       )) T
+   WHERE   T.BILL_NO IS NOT NULL
+GROUP BY   (T.BILL_NO, T.BILL_ITEM_NUMB)
+ORDER BY   T.BILL_NO DESC, T.BILL_ITEM_NUMB	
+	</select>
+</mapper>

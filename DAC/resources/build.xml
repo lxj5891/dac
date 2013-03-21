@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="COMBO-TOMCAT" default="build" basedir="I:/COMBO/workspace/jobs/antony/workspace/Antony" >
+	<property environment="env" />
+	<property file="build.properties" /> 
+	<property name="webapp.name" value="combo" />
+	<property name="tomcat.home" value="D:/COMBO/tomcat" />
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="ant.dir" value="I:/COMBO/workspace/tools/Ant" />
+	<property name="webRoot.dir" value="${basedir}/WebRoot" />
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="config.dir" value="${basedir}/resources" />
+	<property name="lib.dir" value="${webRoot.dir}/WEB-INF/lib" />
+	<property name="build.dir" value="${basedir}/WebRoot/WEB-INF" />
+	<property name="log.file" value="D:/COMBO/logs/antony-build-web.log"/>
+	<property name="msg.commit" value="每日构建自动提交" /> 
+
+	<!-- 使用eclipse jdt进行编译，而不使用JDK编译  -->
+
+	<tstamp>
+		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" />
+	</tstamp>
+
+	<echo>${build.time}</echo>
+
+	<!-- 初始化classpath -->
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<!-- 添加tomcat类路径 -->
+		<fileset dir="${tomcat.home}/lib">
+			<include name="*.jar" />
+		</fileset>
+		<!-- 添加tomcat类路径 -->
+		<fileset dir="D:/COMBO/workspace/LIBS/J2EE6">
+			<include name="*.jar" />
+		</fileset>
+		<!-- ant lib包  -->
+		<fileset dir="${ant.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="D:/COMBO/workspace/svnant/lib/svnclientadapter/lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="D:/svn/svnClientAdapter/lib">
+			 <include name="**/*.jar" />
+		</fileset>
+		
+		<pathelement location="${build.dir}/classes"/>
+	</path>
+	<path id="svnant.lib">
+	        <pathelement location="${svnjavahl.jar}" />
+	        <pathelement location="${svnant.jar}" />
+	        <pathelement location="${svnClientAdapter.jar}" />
+	    </path>
+	
+	
+
+	<target name="print_classpath2">
+		<property name="myclasspath" refid="project.classpath"/>
+		<echo message="Classpath = ${myclasspath}"/>
+	</target>
+
+	<pathconvert pathsep="${line.separator}|   |-- "  
+             property="echo.path.compile"  
+             refid="project.classpath">
+	</pathconvert>
+	<target name="print_classpath3">
+		<echo message="|-- compile classpath"/>
+		<echo message="|   |"/>
+		<echo message="|   |-- ${echo.path.compile}"/>
+	</target>
+ 	<target name="stop_tomcat">  
+        <echo>停止tomcat</echo>  
+        <exec executable="cmd" dir="${tomcat.home}/bin" failonerror="false"   
+                    output="${log.file}" append="true" >  
+            <!-- <arg value="/c" /> -->     
+            <env key="CATALINA_HOME" path="${tomcat.home}"/>  
+            <arg value="/c shutdown.bat" />     
+        </exec>  
+    </target>  
+	<target name="clear" description="清理旧文件">
+		<echo>删除之前的目录结构</echo>
+		<delete dir="${build.dir}/classes" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<!-- 创建目录结构 -->
+	<target name="init" depends="clear"  description="创建初始化目录结构">
+		<echo>创建初始化目录结构</echo>
+		<mkdir dir="${build.dir}/classes" />
+		<mkdir dir="${dist.dir}" />
+		<touch file="${log.file}" />
+	</target>
+
+	<!-- 编译java -->
+	<target name="compile" depends="init" description="编译java文件">
+		<echo>编译java文件</echo>
+		<javac srcdir="${src.dir}" destdir="${build.dir}/classes"   
+            includeantruntime="false" nowarn="on"   
+            source="1.6" target="1.6" deprecation="true" debug="true"   
+            encoding="UTF-8" classpathref="project.classpath"   
+            >
+			
+			
+			<compilerarg line="-Xlint:unchecked" />
+			<classpath refid="project.classpath" />
+		</javac>
+		<copy todir="${build.dir}/classes" overwrite="true">
+			<fileset dir="${src.dir}" excludes="**/*.java">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+				<include name="**/*.sql" />
+			</fileset>
+			<fileset dir="${config.dir}" />
+		</copy>
+
+	</target>
+
+	<target name="war" depends="compile" description="将工程打成war包">
+		<echo>将工程打成war包</echo>
+	</target>
+
+	<!-- copy war包 tomcat的deploy目录 -->
+	<target name="deploy" depends="war" description="部署项目">
+		<echo>${build.time}部署项目</echo>
+		<delete dir="${dist.dir}" />
+	</target>
+
+    <target name="build" depends="deploy" description="description">
+    	<echo>启动tomcat</echo>  
+    	
+    </target>
+	<target name="start" description="description">
+	    	<echo>启动tomcat</echo>  
+			<exec dir="D:/COMBO/" executable="cmd">
+    	   <env key="CATALINA_HOME" path="D:/COMBO/tomcat"/>
+    		<env key="JAVA_HOME" path="C:/Program Files/Java/jdk1.7.0_03"/>
+    	   <arg value="/C tomcat.bat"/>
+    	  </exec>
+	    </target>
+	
+</project>
