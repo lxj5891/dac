@@ -35,7 +35,7 @@
 			</div>
 			<div id="login_content">
 				<div class="loginForm">
-					<form action="/antony/admin/login.do" method="post">
+					<form action="${base}/admin/login.do" method="post">
 						<c:if test="${errorInfo != null}">
 							<p>
 								<h2>

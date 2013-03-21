@@ -73,7 +73,7 @@
 <script src="${base}/themes/ui/ui/jquery.ui.dialog.js"></script>
 <script type="text/javascript">
 $(function(){
-	DWZ.init("/antony/js/dwz.frag.xml", {
+	DWZ.init("/dac/js/dwz.frag.xml", {
 		loginUrl:"login_dialog.html", loginTitle:"登录",	// 弹出登录对话框
 //		loginUrl:"login.html",	// 跳到登录页面
 		statusCode:{ok:200, error:300, timeout:301}, //【可选】
@@ -81,7 +81,7 @@ $(function(){
 		debug:false,	// 调试模式 【true|false】
 		callback:function(){
 			initEnv();
-			$("#themeList").theme({themeBase:"/antony/themes"}); // themeBase 相对于index页面的主题base路径
+			$("#themeList").theme({themeBase:"/dac/themes"}); // themeBase 相对于index页面的主题base路径
 		}
 	});
 });
@@ -112,7 +112,7 @@ $(function(){
 
 			<div id="navMenu">
 				<ul>
-					<li class="selected"><a onclick="javascript:location.replace('/antony/admin/root.do');"><span>我的主页</span></a></li>
+					<li class="selected"><a onclick="javascript:location.replace('/dac/admin/root.do');"><span>我的主页</span></a></li>
 					<c:forEach items="${topMenuList}" var="m" varStatus="mit">
 						<li><a href="${m.action}"><span>${m.name}</span></a></li>
 					</c:forEach>
