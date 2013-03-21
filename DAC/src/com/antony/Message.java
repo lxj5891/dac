@@ -1,10 +1,9 @@
 package com.antony;
 
 /**
- * 后台消息信息配置
+ * 后台消息信息配置443434
  * 
  * @author Tony Shen
- * 
  */
 public interface Message {
 	
